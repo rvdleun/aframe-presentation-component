@@ -17,11 +17,11 @@
     "vr"
   ],
   "dependencies": {
-    "aframe": "^0.7.1",
+    "aframe": "^0.9.2",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.10"
   },
   "devDependencies": {
-    "budo": "^11.2.0"
+    "budo": "^11.6.3"
   }
 }
