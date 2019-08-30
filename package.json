@@ -17,7 +17,7 @@
     "vr"
   ],
   "dependencies": {
-    "aframe": "^0.7.1",
+    "aframe": "^0.9.2",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.10"
   },
