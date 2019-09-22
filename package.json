@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && mkdir dist && cp index.js dist/aframe-presentation-component.js && ./node_modules/.bin/webpack-cli --entry ./index.js --output dist/aframe-presentation-component.min.js",
+    "build": "rm -rf dist && mkdir dist && cp index.js dist/aframe-presentation-component.js && ./node_modules/.bin/webpack-cli --entry ./index.js --output dist/aframe-presentation-component.min.js --mode production",
     "dev": "./node_modules/.bin/budo index.js:aframe-presentation-component.min.js --dir examples --port 7000 --live",
     "start": "npm run dev"
   },

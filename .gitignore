@@ -42,6 +42,3 @@ jspm_packages
 
 # Idea directory
 .idea
-
-# Build directory
-dist
