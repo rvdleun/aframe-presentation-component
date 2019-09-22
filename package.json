@@ -1,11 +1,11 @@
 {
-  "name": "aframe-trl-starter-kit",
-  "description": "The Reality Lab's Starter Kit",
+  "name": "aframe-presentation-component",
+  "description": "AFrame Presentation component",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && mkdir dist && cp -R public/* dist && ./node_modules/.bin/webpack-cli --entry ./src/index.js --output dist/main.js",
-    "dev": "./node_modules/.bin/budo src/index.js:main.js --dir public --port 7000 --live",
+    "build": "rm -rf dist && mkdir dist && cp index.js dist/aframe-presentation-component.js && ./node_modules/.bin/webpack-cli --entry ./index.js --output dist/aframe-presentation-component.min.js",
+    "dev": "./node_modules/.bin/budo index.js:aframe-presentation-component.min.js --dir examples --port 7000 --live",
     "start": "npm run dev"
   },
   "keywords": [
@@ -13,6 +13,8 @@
     "aframe-example",
     "aframe-boilerplate",
     "aframe-scene",
+    "presentation",
+    "slidedeck",
     "webvr",
     "vr"
   ],
