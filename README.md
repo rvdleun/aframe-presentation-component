@@ -1,20 +1,5 @@
-# TRL-Starter-Kit
-This is a starter kit that I frequently use when building new AFrame projects.
+# AFrame Presentation Component
+This is an early look at the presentation component that will let you create a slidedeck in AFrame. Currently WIP. Will try to add a proper README.md as soon as I can.
 
-## Directory structure
+Please check `examples/basic.html` for a simple example on how to use the component.
 
-### Public
-Contains all public assets, like index.html and media files.
-
-### src
-Contains all components and systems scripts
-
-## Development
-* Run `npm run dev`
-* Open a web browser
-* Go to localhost:7000
-* Develop away!
-
-## Build
-* Run `npm run build`
-* A ready-to-deploy project will be available in the dist directory.
