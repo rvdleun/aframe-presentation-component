@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Example project</title>
+    <meta name="description" content="Example project">
+
+    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+    <script src="./aframe-presentation-component.min.js"></script>
+</head>
+<body>
+<a-scene environment vr-mode-ui="enabled: false">
+    <a-box class="box" color="red" position="0 3 -3" animation__play="property: rotation; from: 0 0 0; to: 360 360 360; dur: 5000; easing: linear; loop: true; autoplay: false"></a-box>
+    <a-text position="0 2 -3" align="center" value="Box"></a-text>
+
+    <a-entity position="0 3 0" camera>
+        <a-text position="0 1.5 -3" align="center" value="Press <- and -> to move back and forth"></a-text>
+    </a-entity>
+
+    <a-presentation>
+        <a-presentation-slide camera-position="0 3 0"></a-presentation-slide>
+        <a-presentation-slide camera-position="0 3 0" animations-selector=".box" animations-start="play"></a-presentation-slide>
+    </a-presentation>
+</a-scene>
+</body>
+</html>

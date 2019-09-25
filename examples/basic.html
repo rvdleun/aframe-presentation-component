@@ -10,7 +10,7 @@
     <script src="./aframe-presentation-component.min.js"></script>
   </head>
   <body>
-    <a-scene environment>
+    <a-scene environment vr-mode-ui="enabled: false">
       <a-box color="red" position="0 3 -3">
         <a-text position="0 -1 0" align="center" value="Box"></a-text>
       </a-box>
@@ -32,10 +32,18 @@
       </a-entity>
 
       <a-presentation>
-        <a-presentation-slide camera-position="0 3 0"></a-presentation-slide>
-        <a-presentation-slide camera-position="6 3 0"></a-presentation-slide>
-        <a-presentation-slide camera-position="12 3 0"></a-presentation-slide>
-        <a-presentation-slide camera-position="6 3 0" camera-rotation="0 -180 0" camera-duration="2500"></a-presentation-slide>
+        <a-slide>
+          <a-slide-camera position="0 3 0"></a-slide-camera>
+        </a-slide>
+        <a-slide>
+          <a-slide-camera position="6 3 0"></a-slide-camera>
+        </a-slide>
+        <a-slide>
+          <a-slide-camera position="12 3 0"></a-slide-camera>
+        </a-slide>
+        <a-slide>
+          <a-slide-camera position="6 3 0" rotation="0 -180 0" duration="2500"></a-slide-camera>
+        </a-slide>
       </a-presentation>
     </a-scene>
   </body>
