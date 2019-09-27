@@ -29,6 +29,11 @@ AFRAME.registerComponent('slide-camera', {
                 this.system.getAllCameraSlides();
             }
 
+            console.log(this.system.cameraSlides);
+            if (this.system.cameraSlides.length <= 1) {
+                return;
+            }
+
             if (instant) {
                 camera.setAttribute('position', this.el.getAttribute('position'));
                 camera.setAttribute('rotation', this.el.getAttribute('rotation'));

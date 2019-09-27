@@ -32,12 +32,14 @@ AFRAME.registerComponent('presentation', {
             window.location.hash = this.currentSlide.toString();
         }
 
-        currentSlide.dispatchEvent(new CustomEvent('a-presentation.slide-active', { detail: {
+        const detail = {
             currentSlide,
             direction,
             instant,
             previousSlide,
-        } }));
+        };
+        previousSlide.dispatchEvent(new CustomEvent('a-presentation.slide-inactive', { detail }));
+        currentSlide.dispatchEvent(new CustomEvent('a-presentation.slide-active', { detail }));
     },
 
     previousSlide: function() {
