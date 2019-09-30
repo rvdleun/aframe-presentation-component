@@ -30,7 +30,12 @@ AFRAME.registerSystem('slide-animation', {
 
                     case 'play':
                         element.setAttribute(`animation__${animation}`, 'dir', '');
-                        component.beginAnimation();
+
+                        if (component.data.delay) {
+                            setTimeout(() => component.beginAnimation(), component.data.delay);
+                        } else {
+                            component.beginAnimation();
+                        }
                         break;
                 }
             });
@@ -49,14 +54,20 @@ AFRAME.registerComponent('slide-animation', {
             const { direction, instant } = e.detail;
 
             const { animations, selector } = this.data;
-            console.log(this.data);
 
             if (instant) {
-
-            } else if(direction < 0) {
-                this.system.playAnimation(selector, animations, 'prev');
+                this.system.playAnimation(selector, animations, 'to');
             } else if(direction > 0) {
                 this.system.playAnimation(selector, animations, 'play');
+            }
+        });
+
+        this.el.addEventListener('a-presentation.slide-inactive', (e) => {
+            const { direction } = e.detail;
+            const { animations, selector } = this.data;
+
+            if(direction < 0) {
+                this.system.playAnimation(selector, animations, 'prev');
             }
         });
     }
