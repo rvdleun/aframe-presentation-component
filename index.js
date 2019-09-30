@@ -1,5 +1,3 @@
-require('aframe');
-
 require('./src/presentation.component');
 require('./src/slide.component');
 require('./src/slide-animation.component');
