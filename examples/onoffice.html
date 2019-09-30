@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Example project</title>
+    <meta name="description" content="Example project">
+
+    <script src="./aframe-presentation-component.min.js"></script>
+</head>
+<body>
+<a-scene environment="preset: tron" vr-mode-ui="enabled: false">
+    <a-assets>
+        <a-asset-item id="computer-gltf" src="./assets/models/Computer.gltf"></a-asset-item>
+        <a-asset-item id="headset-gltf" src="./assets/models/High-end_headset_01.gltf"></a-asset-item>
+        <a-asset-item id="oculus-go-obj" src="./assets/models/oculus_go.obj"></a-asset-item>
+        <a-asset-item id="oculus-go-mtl" src="./assets/models/oculus_go.mtl"></a-asset-item>
+        <a-asset-item id="table-gltf" src="./assets/models/Table_Large_Rectangular_01.gltf"></a-asset-item>
+    </a-assets>
+
+    <a-entity position="0 3 0" camera>
+        <a-sphere
+                id="office"
+                position="0 0 -1000"
+                rotation="0 -90 0"
+                scale="-1 1 1"
+                opacity="0"
+                side="double"
+                shader="flat"
+                src="assets/images/office.jpg"
+                animation__show="property: opacity; from: 0; to: 1; autoplay: false"
+                animation__hide="property: opacity; from: 1; to: 0; autoplay: false"
+                animation__rotate="property: rotation; from: 0 -90 0; to: 0 -15 0; dur: 2000; autoplay: false"
+                animation__appear="property: position; from: 0 0 -1000; to: 0 0 0; dur: 0; autoplay: false"
+                animation__remove="property: position; from: 0 0 0; to: 0 0 -1000; dur: 0; autoplay: false"
+        ></a-sphere>
+    </a-entity>
+
+    <a-entity id="slide-what-is-onoffice">
+        <a-entity position="0 0 -4" rotation="0 0 0">
+            <a-text
+                    id="title-onoffice"
+                    position="0 4 0" scale="2 2 2"  align="center" value="On/Office"
+                    animation__remove="property: scale; from: 2 2 2; to: 0 0 0; autoplay: false"></a-text>
+
+            <a-gltf-model
+                    position="0 0 0"
+                    rotation="0 90 0"
+                    scale=".2 .2 .2"
+                    src="#table-gltf"
+                    animation__appear="property: scale; from: 1 0 0; to: 1 1 1; dur: 1750; autoplay: false"
+            ></a-gltf-model>
+
+            <a-gltf-model
+                    position="-.5 1.5 -0.5"
+                    rotation="0 0 0"
+                    scale=".005 .005 .005"
+                    src="#computer-gltf"
+                    animation__appear="property: scale; from: 1 0 0; to: 1 1 1; dur: 1750; autoplay: false"
+            ></a-gltf-model>
+
+            <a-obj-model
+                    class="headset"
+                    position="1 2.9 -.35"
+                    rotation="0 35 0"
+                    scale=".0165 .0165 .0165"
+                    mtl="#oculus-go-mtl"
+                    src="#oculus-go-obj"
+                    animation__move="property: position; from: 1 2.9 -.35; to: 0 3 5; dur: 2000; autoplay: false"
+                    animation__rotation="property: rotation; from: 0 35 0; to: 0 180 0; dur: 1500; autoplay: false"
+            ></a-obj-model>
+
+            <a-plane
+                    position="-.5 2.368 -0.45"
+                    scale="1.8 1 1"
+                    shader="flat"
+                    src="./assets/images/screen.png"
+            ></a-plane>
+
+            <a-plane
+                    class="screen"
+                    position="-.5 2.368 -0.45"
+                    side="double"
+                    scale="1.8 1 1"
+                    shader="flat"
+                    src="./assets/images/screen.png"
+                    animation__move="property: position; from: -.5 2.368 -0.45; to: 0 3.1 4.65; dur: 1500; easing: linear; loop: true; autoplay: false"
+                    animation__scale="property: scale; from: 1.8 1 1; to: 0 0 0; dur: 1500; loop: true; autoplay: false"
+            ></a-plane>
+        </a-entity>
+    </a-entity>
+
+    <a-entity id="built-with"
+        position="1.5 5 -2"
+        scale="0 0 0"
+        animation__appear="property: scale; from: 0 0 0; to: 1 1 1; autoplay: false"
+        animation__remove="property: scale; from: 1 1 1; to: 0 0 0; autoplay: false"
+    >
+        <a-entity
+            id="built-with-before"
+            rotation="0 180 0"
+            animation__appear="property: rotation; from: 0 180 0; to: 0 0 0; easing: linear; dur: 1200; autoplay: false"
+            animation__disappear="property: rotation; from: 0 0 0; to: 0 -180 0; easing: linear; dur: 1200; autoplay: false"
+        >
+            <a-text position="0 .85 0" rotation="0 90 0" scale="1.25 1.25 1.25" value="2015" align="center"></a-text>
+            <a-text position="0 0 -1" rotation="0 90 0" value="VR CLIENT\n-----------------\nUnity" align="center"></a-text>
+            <a-text position="0 0 1" rotation="0 90 0" value="SERVER\n------------\nJava" align="center"></a-text>
+        </a-entity>
+
+        <a-entity
+                id="built-with-after"
+                rotation="0 180 0"
+                animation__appear="property: rotation; from: 0 180 0; to: 0 0 0; easing: linear; dur: 1200; autoplay: false"
+                animation__disappear="property: rotation; from: 0 0 0; to: 0 -180 0; easing: linear; dur: 1200; autoplay: false"
+        >
+            <a-text position="0 .85 0" rotation="0 90 0" scale="1.25 1.25 1.25" value="2018" align="center"></a-text>
+            <a-text position="0 0 -1" rotation="0 90 0" value="VR CLIENT\n-----------------\nJavascript" align="center"></a-text>
+            <a-text position="0 0 1" rotation="0 90 0" value="SERVER\n------------\nJavascript" align="center"></a-text>
+        </a-entity>
+    </a-entity>
+
+    <a-entity
+        id="web-tools"
+        position="1.5 8 -2"
+        animation__remove="property: scale; from: 1 1 1; to: 0 0 0; autoplay: false"
+    >
+        <a-text id="web-tools-titles" position="0 .85 0" rotation="0 90 0" scale="1.25 1.25 1.25" align="center" value="Used tools & frameworks"
+                animation__appear="property: scale; from: 0 0 0; to: 1 1 1; autoplay: false"
+        ></a-text>
+
+        <a-text id="web-tools-1" position="0 0 1.5" rotation="0 90 0" scale="0 0 0" align="center" value="AFRAME"
+                animation__appear="property: scale; from: 0 0 0; to: 1 1 1; autoplay: false"
+        ></a-text>
+        <a-text id="web-tools-2" position="0 0 0" rotation="0 90 0" scale="0 0 0" align="center" value="Electron"
+                animation__appear="property: scale; from: 0 0 0; to: 1 1 1; autoplay: false"
+        ></a-text>
+        <a-text id="web-tools-3" position="0 0 -1.5" rotation="0 90 0" scale="0 0 0" align="center" value="WebRTC"
+                animation__appear="property: scale; from: 0 0 0; to: 1 1 1; autoplay: false"
+        ></a-text>
+
+    </a-entity>
+
+    <a-entity
+            id="pros-cons"
+            position="1.5 11 -2"
+            animation__remove="property: scale; from: 1 1 1; to: 0 0 0; autoplay: false"
+    >
+
+        <a-text id="pros-cons-titles" position="0 1 0" rotation="0 90 0" align="center" value="Pro's and Cons"
+                animation__appear="property: scale; from: 0 0 0; to: 1 1 1; autoplay: false"
+        ></a-text>
+
+        <a-text id="pros-cons-pros" position="0 0 2.75" rotation="0 90 0" value="- Windows, Mac, Linux\n\n- Multiplatform support\n\n- Easy to update / develop"
+                animation__appear="property: scale; from: 0 0 0; to: 1 1 1; autoplay: false"
+        ></a-text>
+
+        <a-text id="pros-cons-pros" position="0 0 -.25" rotation="0 90 0" value="- Browser dependency\n\n\n\n\n"
+                animation__appear="property: scale; from: 0 0 0; to: 1 1 1; autoplay: false"
+        ></a-text>
+
+    </a-entity>
+
+    <a-entity
+        id="end"
+        position="6.5 11 -2"
+    >
+        <a-text position="0 .25 0" rotation="0 270 0" scale="2 2 2" align="center" value="Thank you"></a-text>
+        <a-text position="0 -0.15 0" rotation="0 270 0" scale="1 1 1" align="center" value="https://onoffice.app"></a-text>
+    </a-entity>
+
+    <a-presentation>
+        <a-slide>
+            <a-slide-camera position="0 3 0"></a-slide-camera>
+        </a-slide>
+        <a-slide>
+            <a-slide-camera position="1.5 3.05 -2" rotation="-25 25 0"></a-slide-camera>
+            <a-slide-animation selector="#title-onoffice" animations="remove"></a-slide-animation>
+        </a-slide>
+        <a-slide>
+            <a-slide-camera position="4 2 -2" rotation="0 90 0"></a-slide-camera>
+            <a-slide-animation selector=".headset" animations="move,rotation"></a-slide-animation>
+        </a-slide>
+        <a-slide>
+            <a-slide-animation selector=".screen" animations="move,scale"></a-slide-animation>
+        </a-slide>
+        <a-slide>
+            <a-slide-animation selector="#office" animations="appear,show"></a-slide-animation>
+        </a-slide>
+        <a-slide>
+            <a-slide-animation selector="#office" animations="rotate"></a-slide-animation>
+        </a-slide>
+        <a-slide>
+            <a-slide-camera position="4 5 -2" rotation="0 90 0" duration="3100"></a-slide-camera>
+            <a-slide-animation selector="#office" animations="hide"></a-slide-animation>
+            <a-slide-animation selector="#built-with" animations="appear"></a-slide-animation>
+        </a-slide>
+        <a-slide>
+            <a-slide-animation selector="#office" animations="remove"></a-slide-animation>
+            <a-slide-animation selector="#built-with-before" animations="appear"></a-slide-animation>
+        </a-slide>
+        <a-slide>
+            <a-slide-animation selector="#built-with-before" animations="disappear"></a-slide-animation>
+            <a-slide-animation selector="#built-with-after" animations="appear"></a-slide-animation>
+        </a-slide>
+        <a-slide>
+            <a-slide-camera position="4 8 -2" rotation="0 90 0" duration="3100"></a-slide-camera>
+            <a-slide-animation selector="#built-with" animations="remove"></a-slide-animation>
+        </a-slide>
+        <a-slide>
+            <a-slide-animation selector="#web-tools-1" animations="appear"></a-slide-animation>
+        </a-slide>
+        <a-slide>
+            <a-slide-animation selector="#web-tools-2" animations="appear"></a-slide-animation>
+        </a-slide>
+        <a-slide>
+            <a-slide-animation selector="#web-tools-3" animations="appear"></a-slide-animation>
+        </a-slide>
+        <a-slide>
+            <a-slide-camera position="4 11 -2" rotation="0 90 0" duration="3100"></a-slide-camera>
+            <a-slide-animation selector="#web-tools" animations="remove"></a-slide-animation>
+        </a-slide>
+        <a-slide>
+            <a-slide-camera position="4 11 -2" rotation="0 270 0" duration="2000"></a-slide-camera>
+        </a-slide>
+    </a-presentation>
+</a-scene>
+</body>
+</html>

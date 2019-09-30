@@ -7,8 +7,9 @@ AFRAME.registerComponent('slide', {
     },
 
     passEventToChildren: function(e) {
+        console.log(e);
         Array.from(this.el.children).forEach((child) => {
-            child.dispatchEvent(new CustomEvent('a-presentation.slide-active', e));
+            child.dispatchEvent(new CustomEvent(e.type, e));
         });
     }
 });

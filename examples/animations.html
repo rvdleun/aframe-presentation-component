@@ -11,12 +11,34 @@
 </head>
 <body>
 <a-scene environment vr-mode-ui="enabled: false">
+    <a-assets>
+        <a-asset-item id="computer-gltf" src="./assets/models/Computer.gltf"></a-asset-item>
+        <a-asset-item id="table-gltf" src="./assets/models/Table_Large_Rectangular_01.gltf"></a-asset-item>
+    </a-assets>
+
     <a-box class="box" color="red" position="0 3 -3" animation__play="property: rotation; from: 0 0 0; to: 360 360 360; dur: 5000; easing: linear; autoplay: false"></a-box>
     <a-text position="0 2 -3" align="center" value="Box"></a-text>
 
-    <a-entity position="0 3 0" camera>
-        <a-text position="0 1.5 -3" align="center" value="Press <- and -> to move back and forth"></a-text>
+    <a-entity position="0 3 0" camera></a-entity>
+
+    <a-entity id="slide-what-is-onoffice">
+        <a-gltf-model
+                position="0 0 -3"
+                rotation="0 90 0"
+                scale=".2 .2 .2"
+                src="#table-gltf"
+                animation__appear="property: scale; from: 1 0 0; to: 1 1 1; dur: 1750; autoplay: false"
+        ></a-gltf-model>
+
+        <a-gltf-model
+                position="-.5 1.5 -3.5"
+                rotation="0 0 0"
+                scale=".005 .005 .005"
+                src="#computer-gltf"
+                animation__appear="property: scale; from: 1 0 0; to: 1 1 1; dur: 1750; autoplay: false"
+        ></a-gltf-model>
     </a-entity>
+
 
     <a-presentation>
         <a-slide>

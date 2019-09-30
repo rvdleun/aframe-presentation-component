@@ -1,6 +1,6 @@
 AFRAME.registerComponent('presentation', {
     schema: {
-        keyboardShortcuts: { type: 'boolean', default: true },
+        shortcuts: { type: 'boolean', default: true },
         useHash: { type: 'boolean', default: true },
     },
 
@@ -10,12 +10,17 @@ AFRAME.registerComponent('presentation', {
     init: function() {
         this.slides = this.el.querySelectorAll('[slide]');
 
-        if (this.data.keyboardShortcuts) {
+        if (this.data.shortcuts) {
             document.addEventListener('keyup', (e) => this._onKey(e));
         }
 
         setTimeout(() => {
-            this.changeSlide(this.data.useHash && window.location.hash ? window.location.hash.substring(1) : '0', true);
+            const slide = this.data.useHash && window.location.hash ? window.location.hash.substring(1) : 0;
+
+            this.changeSlide(0, true);
+            for (let i = 0; i < slide; i++) {
+                this.changeSlide(1, true);
+            }
         });
     },
 
