@@ -82,8 +82,7 @@ AFRAME.registerPrimitive('a-presentation', {
     },
 
     mappings: {
-        'camera': 'presentation.camera',
-        'keyboard-shortcuts': 'presentation.keyboardShortcuts',
+        'shortcuts': 'presentation.shortcuts',
         'use-hash': 'presentation.useHash',
     }
 });

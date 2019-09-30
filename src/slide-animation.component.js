@@ -30,7 +30,12 @@ AFRAME.registerSystem('slide-animation', {
 
                     case 'play':
                         element.setAttribute(`animation__${animation}`, 'dir', '');
-                        component.beginAnimation();
+
+                        if (component.data.delay) {
+                            setTimeout(() => component.beginAnimation(), component.data.delay);
+                        } else {
+                            component.beginAnimation();
+                        }
                         break;
                 }
             });
