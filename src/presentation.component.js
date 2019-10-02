@@ -43,6 +43,7 @@ AFRAME.registerComponent('presentation', {
             instant,
             previousSlide,
         };
+
         previousSlide.dispatchEvent(new CustomEvent('a-presentation.slide-inactive', { detail }));
         currentSlide.dispatchEvent(new CustomEvent('a-presentation.slide-active', { detail }));
     },

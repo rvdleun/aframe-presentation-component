@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>A-Frame Presentation Component - Introduction</title>
+
+    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
+    <script src="./aframe-presentation-component.min.js"></script>
+    <script>
+        AFRAME.registerComponent('slide-environment', {
+            schema: {
+                settings: { type: 'string', default: 'preset: default' },
+            },
+
+            init: function() {
+                this.el.addEventListener('a-presentation.slide-active', () => {
+                    const elements = [].slice.call(document.querySelectorAll('.environment'));
+                    elements.forEach((element) => {
+                        element.parentNode.removeChild(element);
+                    });
+
+                    this.el.sceneEl.removeAttribute('environment');
+
+                    setTimeout(() => {
+                        this.el.sceneEl.setAttribute('environment', this.data.settings);
+                    });
+                });
+            }
+        });
+
+        AFRAME.registerPrimitive('a-slide-environment', {
+            defaultComponents: {
+                'slide-environment': {},
+            },
+
+            mappings: {
+                'settings': 'slide-environment.settings',
+            }
+        });
+    </script>
+</head>
+<body>
+<a-scene environment="preset: tron" vr-mode-ui="enabled: false" background="color: black">
+    <a-entity id="intro" position="0 3 0">
+        <a-plane
+                id="slide-background"
+                position="0 0 -1"
+                scale="50 5 5"
+                color="#333"
+                shader="flat"
+                animation__fadeout="property: opacity; from: 1; to: 0; dur: 500; autoplay: false"
+        ></a-plane>
+        <a-entity id="slide-1">
+            <a-text position="0 .15 -.5" scale=".35 .35 .35" align="center" value="aframe-presentation-component"></a-text>
+            <a-text position="0 .05 -.5" scale=".25 .25 .25" align="center" value="By Ruben van der Leun (@rvdleun)"></a-text>
+            <a-text position="0 -.2 -.5" scale=".25 .25 .25" align="center" value="Use left and right arrow keys to navigate"></a-text>
+        </a-entity>
+
+        <a-entity id="slide-2">
+            <a-text position="2 0 -.5" scale=".3 .3 .3" align="center" value="These AFrame components are\n setup to let you create a presentation..."></a-text>
+        </a-entity>
+
+        <a-entity id="slide-3">
+            <a-text position="4 0 -.5" scale=".3 .3 .3" align="center" value="that instead of being 2D..."></a-text>
+        </a-entity>
+    </a-entity>
+
+    <a-entity id="3d-intro">
+        <a-text position="10 20 13" rotation="0 180 0" align="center" scale="3 3 3" value="is 3D instead!"></a-text>
+        <a-text
+                id="look-at-features"
+                position="10 19 13"
+                rotation="0 180 0"
+                align="center"
+                scale="2 0 2"
+                value="Let's have a look at the features"
+                animation__appear="property: scale; from: 2 0 2; to: 2 2 2; delay: 250; autoplay: false"
+        ></a-text>
+
+        <a-text
+                id="move-the-camera"
+                position="27 5 20"
+                rotation="0 -270 0"
+                align="center"
+                scale="2 2 2"
+                value="Move the camera around."
+                animation__appear="property: position; from: -20 5 20; to: -13 5 20; dur: 4000; autoplay: false"
+                animation__disappear="property: rotation; from: 0 -270 0; to: 0 -90 0; dur: 1200; autoplay: false"
+        ></a-text>
+
+        <a-text
+                id="trigger-animations"
+                position="-13 5 20"
+                rotation="0 -90 0"
+                align="center"
+                scale="2 2 2"
+                value="Or trigger animations!"
+                animation__appear="property: rotation; from: 0 -450 0; to: 0 -270 0; dur: 1200; autoplay: false"
+                animation__disappear="property: rotation; from: 0 -270 0; to: 0 -90 0; dur: 1200; autoplay: false"
+        ></a-text>
+
+        <a-box
+                id="animation-box"
+                color="red"
+                position="-15 6 30"
+                visible="false"
+                animation__position="property: position; from: -15 6 29; to: -15 6 11; dur: 2500; autoplay: false"
+                animation__rotation="property: rotation; from: 0 0 0; to: 360 360 360; dur: 2500; autoplay: false"
+        ></a-box>
+
+        <a-text
+                id="visibility"
+                position="-13 5 20"
+                rotation="0 -90 0"
+                align="center"
+                scale="2 2 2"
+                value="Or make entities appear and disappear!"
+                animation__appear="property: rotation; from: 0 -450 0; to: 0 -270 0; dur: 1200; autoplay: false"
+                animation__disappear="property: rotation; from: 0 -270 0; to: 0 -90 0; dur: 1200; autoplay: false"
+        ></a-text>
+
+        <a-box
+                id="visibility-red"
+                position="-13 6 21.5"
+                color="red"
+                shader="flat"
+                visible="false"
+        ></a-box>
+
+        <a-box
+                id="visibility-green"
+                position="-13 6 20"
+                color="green"
+                shader="flat"
+                visible="false"
+        ></a-box>
+
+        <a-box
+                id="visibility-blue"
+                position="-13 6 18.5"
+                color="blue"
+                shader="flat"
+                visible="false"
+        ></a-box>
+
+        <a-text
+                id="custom-triggers"
+                position="-13 5 20"
+                rotation="0 -90 0"
+                align="center"
+                scale="2 2 2"
+                value="Or hook into the slide events\nto create custom triggers!"
+                animation__appear="property: rotation; from: 0 -450 0; to: 0 -270 0; dur: 1200; autoplay: false"
+                animation__disappear="property: rotation; from: 0 -270 0; to: 0 -90 0; dur: 1200; autoplay: false"
+        ></a-text>
+    </a-entity>
+
+    <a-entity id="conclusion">
+        <a-text
+                id="text-conclusion"
+                position="-10 10 23"
+                rotation="0 -180 0"
+                align="center"
+                value="THE END\n\nClick on the icon\nin the upper-right to learn more"
+                visible="false"
+        ></a-text>
+    </a-entity>
+
+    <a-entity camera></a-entity>
+    <a-presentation>
+        <a-slide>
+            <a-slide-camera position="0 3 0"></a-slide-camera>
+        </a-slide>
+        <a-slide>
+            <a-slide-camera position="2 3 0"></a-slide-camera>
+        </a-slide>
+        <a-slide>
+            <a-slide-camera position="4 3 0"></a-slide-camera>
+        </a-slide>
+        <a-slide>
+            <a-slide-camera position="10 20 10" rotation="0 -180 0" duration="3000"></a-slide-camera>
+            <a-slide-animation selector="#slide-background" animations="fadeout"></a-slide-animation>
+        </a-slide>
+        <a-slide>
+            <a-slide-camera position="10 19 10" rotation="0 -180 0" duration="1000"></a-slide-camera>
+            <a-slide-animation selector="#look-at-features" animations="appear"></a-slide-animation>
+        </a-slide>
+        <a-slide>
+            <a-slide-animation selector="#move-the-camera" animations="appear"></a-slide-animation>
+            <a-slide-camera position="-10 5 20" rotation="0 -270 360" duration="2500"></a-slide-camera>
+        </a-slide>
+        <a-slide>
+            <a-slide-camera position="-10 6 20" rotation="0 -270 360" duration="1500"></a-slide-camera>
+            <a-slide-animation selector="#move-the-camera" animations="disappear"></a-slide-animation>
+            <a-slide-animation selector="#trigger-animations" animations="appear"></a-slide-animation>
+            <a-slide-visibility selector="#animation-box" visibility="true"></a-slide-visibility>
+        </a-slide>
+        <a-slide>
+            <a-slide-animation selector="#animation-box" animations="position,rotation"></a-slide-animation>
+        </a-slide>
+        <a-slide>
+            <a-slide-animation selector="#trigger-animations" animations="disappear"></a-slide-animation>
+            <a-slide-animation selector="#visibility" animations="appear"></a-slide-animation>
+        </a-slide>
+        <a-slide>
+            <a-slide-visibility selector="#visibility-red" visibility="true"></a-slide-visibility>
+        </a-slide>
+        <a-slide>
+            <a-slide-visibility selector="#visibility-green" visibility="true"></a-slide-visibility>
+        </a-slide>
+        <a-slide>
+            <a-slide-visibility selector="#visibility-blue" visibility="true"></a-slide-visibility>
+        </a-slide>
+        <a-slide>
+            <a-slide-visibility selector="#visibility-red" visibility="false"></a-slide-visibility>
+        </a-slide>
+        <a-slide>
+            <a-slide-visibility selector="#visibility-green" visibility="false"></a-slide-visibility>
+        </a-slide>
+        <a-slide>
+            <a-slide-visibility selector="#visibility-blue" visibility="false"></a-slide-visibility>
+        </a-slide>
+        <a-slide>
+            <a-slide-animation selector="#visibility" animations="disappear"></a-slide-animation>
+            <a-slide-animation selector="#custom-triggers" animations="appear"></a-slide-animation>
+            <a-slide-environment settings="preset: tron"></a-slide-environment>
+        </a-slide>
+        <a-slide>
+            <a-slide-environment settings="preset: starry"></a-slide-environment>
+        </a-slide>
+        <a-slide>
+            <a-slide-visibility selector="#text-conclusion" visibility="true"></a-slide-visibility>
+            <a-slide-camera position="-10 10 20" rotation="0 -180 360" duration="1500"></a-slide-camera>
+        </a-slide>
+    </a-presentation>
+</a-scene>
+<a href="https://github.com/rvdleun/aframe-presentation-component" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+</body>
+</html>

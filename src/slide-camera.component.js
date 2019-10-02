@@ -22,14 +22,10 @@ AFRAME.registerSystem('slide-camera', {
             this.getAllCameraSlides();
         }
 
-        if (this.cameraSlides.length <= 1) {
-            return;
-        }
-
         if (instant) {
             camera.setAttribute('position', el.getAttribute('position'));
             camera.setAttribute('rotation', el.getAttribute('rotation'));
-        } else {
+        } else if (this.cameraSlides.length >= 1) {
             const curPos = el.getAttribute('position');
             const curRot = el.getAttribute('rotation');
 
@@ -53,7 +49,7 @@ AFRAME.registerComponent('slide-camera', {
 
     init: function() {
         this.el.addEventListener('a-presentation.slide-active', (e) => {
-            if (e.detail.direction <= 0) {
+            if (e.detail.direction < 0) {
                 return;
             }
 

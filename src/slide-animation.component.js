@@ -1,7 +1,5 @@
 AFRAME.registerSystem('slide-animation', {
     playAnimation: function(selector, animations, action) {
-        console.log(selector, animations, action);
-
         if (!selector || animations.length === 0) {
             return;
         }
@@ -32,6 +30,7 @@ AFRAME.registerSystem('slide-animation', {
                         element.setAttribute(`animation__${animation}`, 'dir', '');
 
                         if (component.data.delay) {
+                            this.playAnimation(selector, animations, 'from');
                             setTimeout(() => component.beginAnimation(), component.data.delay);
                         } else {
                             component.beginAnimation();
@@ -66,9 +65,7 @@ AFRAME.registerComponent('slide-animation', {
             const { direction } = e.detail;
             const { animations, selector } = this.data;
 
-            if(direction < 0) {
-                this.system.playAnimation(selector, animations, 'prev');
-            }
+            this.system.playAnimation(selector, animations, direction < 0 ? 'prev' : 'to');
         });
     }
 });
