@@ -1,4 +1,25 @@
 AFRAME.registerSystem('slide-animation', {
+    timeouts: [],
+
+    init: function() {
+        setTimeout(() => {
+            const presentation = document.querySelector('[presentation]');
+            if (!presentation) {
+                return;
+            }
+
+            console.log(presentation);
+            presentation.addEventListener('a-presentation.slide-change', () => {
+                console.log('Clearing up', this.timeouts);
+                while(this.timeouts.length > 0) {
+                    const timeout = this.timeouts.pop();
+                    clearTimeout(timeout);
+                }
+                console.log('Done Clearing up', this.timeouts);
+            });
+        });
+    },
+
     playAnimation: function(selector, animations, action) {
         if (!selector || animations.length === 0) {
             return;
@@ -15,6 +36,8 @@ AFRAME.registerSystem('slide-animation', {
                 switch(action) {
                     case 'from':
                     case 'to':
+                        component.pauseAnimation();
+
                         const property = component.data.property;
                         const to = component.data[action];
 
@@ -31,7 +54,7 @@ AFRAME.registerSystem('slide-animation', {
 
                         if (component.data.delay) {
                             this.playAnimation(selector, animations, 'from');
-                            setTimeout(() => component.beginAnimation(), component.data.delay);
+                            this.timeouts.push(setTimeout(() => component.beginAnimation(), component.data.delay));
                         } else {
                             component.beginAnimation();
                         }
@@ -65,7 +88,7 @@ AFRAME.registerComponent('slide-animation', {
             const { direction } = e.detail;
             const { animations, selector } = this.data;
 
-            this.system.playAnimation(selector, animations, direction < 0 ? 'prev' : 'to');
+            this.system.playAnimation(selector, animations, direction < 0 ? 'from' : 'to');
         });
     }
 });

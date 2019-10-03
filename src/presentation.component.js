@@ -1,14 +1,31 @@
 AFRAME.registerComponent('presentation', {
     schema: {
+        progressBar: { type: 'boolean', default: true },
         shortcuts: { type: 'boolean', default: true },
         useHash: { type: 'boolean', default: true },
     },
 
     currentSlide: 0,
+    progressBar: null,
     slides: [],
 
     init: function() {
         this.slides = this.el.querySelectorAll('[slide]');
+
+        if (this.data.progressBar) {
+            const progressBar = document.createElement('div');
+            progressBar.setAttribute('id', 'aframe-presentation-progress-bar');
+            progressBar.style.position = 'fixed';
+            progressBar.style.bottom = '0';
+            progressBar.style.left = '0';
+            progressBar.style.height = '5px';
+            progressBar.style.width = '0';
+            progressBar.style.backgroundColor = 'white';
+            progressBar.style.transition = '.5s width';
+
+            document.body.append(progressBar);
+            this.progressBar = progressBar;
+        }
 
         if (this.data.shortcuts) {
             document.addEventListener('keyup', (e) => this._onKey(e));
@@ -33,6 +50,10 @@ AFRAME.registerComponent('presentation', {
             return;
         }
 
+        if (this.data.progressBar) {
+            this.progressBar.style.width = `${100 * ((this.currentSlide + 1)/ this.slides.length)}vw`;
+        }
+
         if (this.data.useHash) {
             window.location.hash = this.currentSlide.toString();
         }
@@ -44,6 +65,7 @@ AFRAME.registerComponent('presentation', {
             previousSlide,
         };
 
+        this.el.dispatchEvent(new CustomEvent('a-presentation.slide-change', { detail }));
         previousSlide.dispatchEvent(new CustomEvent('a-presentation.slide-inactive', { detail }));
         currentSlide.dispatchEvent(new CustomEvent('a-presentation.slide-active', { detail }));
     },
@@ -83,6 +105,7 @@ AFRAME.registerPrimitive('a-presentation', {
     },
 
     mappings: {
+        'progress-bar': 'presentation.progressBar',
         'shortcuts': 'presentation.shortcuts',
         'use-hash': 'presentation.useHash',
     }
