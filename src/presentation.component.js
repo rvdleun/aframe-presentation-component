@@ -8,6 +8,7 @@ AFRAME.registerComponent('presentation', {
     currentSlide: 0,
     progressBar: null,
     slides: [],
+    swipeSession: { start: null, direction: null },
 
     init: function() {
         this.slides = this.el.querySelectorAll('[slide]');
@@ -39,6 +40,38 @@ AFRAME.registerComponent('presentation', {
                 this.changeSlide(1, true);
             }
         });
+
+        document.addEventListener('touchstart', this.handleTouchStart.bind(this), false);
+        document.addEventListener('touchmove', this.handleTouchMove.bind(this), false);
+        document.addEventListener('touchend', this.handleTouchEnd.bind(this), false);
+    },
+
+    handleTouchStart(event) {
+        this.swipeSession.start = event.touches[0].clientX
+    },
+
+    handleTouchMove(event) {
+        if (this.swipeSession.start === null) return
+
+        const end = event.touches[0].clientX
+        const diff = this.swipeSession.start - end
+
+        this.swipeSession.direction = diff > 0
+            ? 'left' : 'right'
+    },
+
+    handleTouchEnd() {
+        switch (this.swipeSession.direction) {
+            case 'left':
+                this.nextSlide()
+                break;
+            case 'right':
+                this.previousSlide()
+                break;
+        }
+
+        this.swipeSession.start = null
+        this.swipeSession.direction = null
     },
 
     changeSlide: function(direction, instant) {
