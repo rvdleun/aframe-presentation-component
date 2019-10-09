@@ -30,6 +30,9 @@ AFRAME.registerComponent('presentation', {
 
         if (this.data.shortcuts) {
             document.addEventListener('keyup', (e) => this._onKey(e));
+            document.addEventListener('touchstart', this.handleTouchStart.bind(this), false);
+            document.addEventListener('touchmove', this.handleTouchMove.bind(this), false);
+            document.addEventListener('touchend', this.handleTouchEnd.bind(this), false);
         }
 
         setTimeout(() => {
@@ -40,10 +43,6 @@ AFRAME.registerComponent('presentation', {
                 this.changeSlide(1, true);
             }
         });
-
-        document.addEventListener('touchstart', this.handleTouchStart.bind(this), false);
-        document.addEventListener('touchmove', this.handleTouchMove.bind(this), false);
-        document.addEventListener('touchend', this.handleTouchEnd.bind(this), false);
     },
 
     handleTouchStart(event) {
