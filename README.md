@@ -13,7 +13,7 @@ Note: This documentation will only cover the primitives that are needed to setup
     <meta name="description" content="Example project">
 
     <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
-    <script src="./aframe-presentation-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-presentation-component/dist/aframe-presentation-component.min.js"></script>
   </head>
   <body>
     <a-scene vr-mode-ui="enabled: false">
