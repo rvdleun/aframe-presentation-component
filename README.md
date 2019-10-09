@@ -13,7 +13,7 @@ Note: This documentation will only cover the primitives that are needed to setup
     <meta name="description" content="Example project">
 
     <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
-    <script src="./aframe-presentation-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-presentation-component/dist/aframe-presentation-component.min.js"></script>
   </head>
   <body>
     <a-scene vr-mode-ui="enabled: false">
@@ -126,7 +126,7 @@ The `a-presentation` primitive contains all elements makes up the slide deck.
 | Parameter | Default | Description |
 | --------- | ------- | ----------- |
 | **progress-bar** | true | Adds a progress bar to the bottom of the document that will update every time you change slides. If you want to style it, the `div` element gets an id named `aframe-presentation-progress-bar`.
-| **shortcuts** | true | Whether the user can move back and forth through the slides by using the arrow keys on the keyboard.
+| **shortcuts** | true | Whether the user can move back and forth through the slides by using the arrow keys on the keyboard or by swiping the screen (for touch device).
 | **use-hash** | true | Will use the URL's hash to store the current slide and move to that slide when the user enters the page.
 
 #### Events
