@@ -1,7 +1,7 @@
 {
   "name": "aframe-presentation-component",
   "description": "AFrame Presentation component",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "scripts": {
     "build": "rm -rf dist && mkdir dist && ./node_modules/.bin/webpack-cli --entry ./index.js --output dist/aframe-presentation-component.js --config webpack.dev.config.js && ./node_modules/.bin/webpack-cli --entry ./index.js --output dist/aframe-presentation-component.min.js",
