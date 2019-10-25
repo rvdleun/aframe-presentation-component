@@ -44,8 +44,8 @@
         });
     </script>
 </head>
-<body>
-<a-scene environment="preset: tron" vr-mode-ui="enabled: false" background="color: black">
+<body style="background-color: black">
+<a-scene environment="preset: tron" vr-mode-ui="enabled: false" style="background-color: black">
     <a-entity id="intro" position="0 3 0">
         <a-plane
                 id="slide-background"
@@ -172,7 +172,7 @@
     </a-entity>
 
     <a-entity camera></a-entity>
-    <a-presentation>
+    <a-presentation aspect-ratio="16:9">
         <a-slide>
             <a-slide-camera position="0 3 0"></a-slide-camera>
         </a-slide>

@@ -37,7 +37,7 @@ Note: This documentation will only cover the primitives that are needed to setup
         <a-text position="0 1.5 -3" align="center" value="Press <- and -> to move back and forth"></a-text>
       </a-entity>
 
-      <a-presentation>
+      <a-presentation aspect-ratio="16:9">
         <a-slide>
           <a-slide-camera position="0 3 0"></a-slide-camera>
         </a-slide>
@@ -125,6 +125,7 @@ The `a-presentation` primitive contains all elements makes up the slide deck.
 
 | Parameter | Default | Description |
 | --------- | ------- | ----------- |
+| **aspect-ratio** | null | Sets an aspect ratio for the canvas. The format is `width:height`. For example: `16:9`.
 | **progress-bar** | true | Adds a progress bar to the bottom of the document that will update every time you change slides. If you want to style it, the `div` element gets an id named `aframe-presentation-progress-bar`.
 | **shortcuts** | true | Whether the user can move back and forth through the slides by using the arrow keys on the keyboard or by swiping the screen (for touch device).
 | **use-hash** | true | Will use the URL's hash to store the current slide and move to that slide when the user enters the page.

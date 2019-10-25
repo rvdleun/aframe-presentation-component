@@ -1,5 +1,6 @@
 AFRAME.registerComponent('presentation', {
     schema: {
+        aspectRatio: { type: 'string', default: null },
         progressBar: { type: 'boolean', default: true },
         shortcuts: { type: 'boolean', default: true },
         useHash: { type: 'boolean', default: true },
@@ -12,6 +13,10 @@ AFRAME.registerComponent('presentation', {
 
     init: function() {
         this.slides = this.el.querySelectorAll('[slide]');
+
+        if (this.data.aspectRatio) {
+            this.setupAspectRatio();
+        }
 
         if (this.data.progressBar) {
             const progressBar = document.createElement('div');
@@ -118,6 +123,44 @@ AFRAME.registerComponent('presentation', {
         this.changeSlide(1);
     },
 
+    setupAspectRatio: function() {
+        const data = this.data.aspectRatio.split(':');
+        if (data.length !== 2) {
+            console.warn('The aspect ratio must be defined as follows: width:height. Example: "16:9"');
+            return;
+        }
+
+        const sceneEl = this.el.sceneEl;
+        if (!sceneEl.hasAttribute('embedded')) {
+            sceneEl.setAttribute('embedded', '');
+        }
+
+        const width = parseInt(data[0]);
+        const height = parseInt(data[1]);
+        const updateCanvas = function() {
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+
+            let canvasWidth, canvasHeight;
+
+            if (width > height) {
+                canvasWidth = windowWidth;
+                canvasHeight = canvasWidth * (height / width);
+            } else {
+                canvasHeight = windowHeight;
+                canvasWidth = canvasHeight * (width / height);
+            }
+
+            const top = (windowHeight - canvasHeight) / 2;
+            const left = (windowWidth - canvasWidth) / 2;
+
+            sceneEl.setAttribute('style', `position: fixed; top: ${top}px; left: ${left}px; width: ${canvasWidth}px; height: ${canvasHeight}px`);
+        };
+
+        window.addEventListener('resize', () => updateCanvas());
+        updateCanvas();
+    },
+
     _onKey: function(event) {
         switch(event.code) {
             case 'ArrowLeft':
@@ -137,6 +180,7 @@ AFRAME.registerPrimitive('a-presentation', {
     },
 
     mappings: {
+        'aspect-ratio': 'presentation.aspectRatio',
         'progress-bar': 'presentation.progressBar',
         'shortcuts': 'presentation.shortcuts',
         'use-hash': 'presentation.useHash',
