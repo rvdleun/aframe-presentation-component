@@ -8,14 +8,11 @@ AFRAME.registerSystem('slide-animation', {
                 return;
             }
 
-            console.log(presentation);
             presentation.addEventListener('a-presentation.slide-change', () => {
-                console.log('Clearing up', this.timeouts);
                 while(this.timeouts.length > 0) {
                     const timeout = this.timeouts.pop();
                     clearTimeout(timeout);
                 }
-                console.log('Done Clearing up', this.timeouts);
             });
         });
     },
