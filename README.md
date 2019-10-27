@@ -261,7 +261,7 @@ AFRAME.registerPrimitive('a-slide-environment', {
 });
 ```
 
-Which can then be followed as follows...
+Which can then be used as follows...
 
 ```html
 <a-slide>
