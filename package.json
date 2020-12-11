@@ -1,7 +1,7 @@
 {
   "name": "aframe-presentation-component",
   "description": "AFrame Presentation component",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "license": "MIT",
   "scripts": {
     "build": "rm -rf dist && mkdir dist && ./node_modules/.bin/webpack-cli --entry ./index.js --output dist/aframe-presentation-component.js --config webpack.dev.config.js && ./node_modules/.bin/webpack-cli --entry ./index.js --output dist/aframe-presentation-component.min.js",
@@ -19,7 +19,7 @@
     "vr"
   ],
   "dependencies": {
-    "aframe": "^0.9.2",
+    "aframe": "^1.1.0",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.10"
   },
