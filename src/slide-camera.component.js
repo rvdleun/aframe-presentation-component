@@ -35,9 +35,9 @@ AFRAME.registerSystem('slide-camera', {
             const prevPos = prevEl.getAttribute('position');
             const prevRot = prevEl.getAttribute('rotation');
 
-            const { duration } = direction > 0 ? data : prevEl.components['slide-camera'].data;
-            camera.setAttribute('animation__position', `property: position; dur: ${duration}; easing: linear; from: ${prevPos.x} ${prevPos.y} ${prevPos.z}; to: ${curPos.x} ${curPos.y} ${curPos.z}`);
-            camera.setAttribute('animation__rotation', `property: rotation; dur: ${duration}; easing: linear; from: ${prevRot.x} ${prevRot.y} ${prevRot.z}; to: ${curRot.x} ${curRot.y} ${curRot.z}`);
+            const { duration, easing } = direction > 0 ? data : prevEl.components['slide-camera'].data;
+            camera.setAttribute('animation__position', `property: position; dur: ${duration}; easing: ${easing}; from: ${prevPos.x} ${prevPos.y} ${prevPos.z}; to: ${curPos.x} ${curPos.y} ${curPos.z}`);
+            camera.setAttribute('animation__rotation', `property: rotation; dur: ${duration}; easing: ${easing}; from: ${prevRot.x} ${prevRot.y} ${prevRot.z}; to: ${curRot.x} ${curRot.y} ${curRot.z}`);
         }
     }
 });
@@ -45,6 +45,7 @@ AFRAME.registerSystem('slide-camera', {
 AFRAME.registerComponent('slide-camera', {
     schema: {
         duration: { type: 'number', default: 1000 },
+        easing: { type: 'string', default: 'linear' },
     },
 
     init: function() {
@@ -79,5 +80,6 @@ AFRAME.registerPrimitive('a-slide-camera', {
 
     mappings: {
         'duration': 'slide-camera.duration',
+        'easing': 'slide-camera.easing',
     }
 });

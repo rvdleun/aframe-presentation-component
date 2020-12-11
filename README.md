@@ -196,6 +196,7 @@ The `a-slide-camera` will move the camera to a new position.
 | Parameter | Default | Description |
 | --------- | ------- | ----------- |
 | duration | 1000 | How long the animation will last in miliseconds |
+| easing | linear | Easings define the accelerations and speed throughout the cycle of the animation. [See a list of possible values here.](https://aframe.io/docs/1.0.0/components/animation.html#easings) |
 | position | 0 0 0 | The new position |
 | rotation | 0 0 0 | The new rotation |
 
