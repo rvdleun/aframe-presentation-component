@@ -160,9 +160,9 @@ AFRAME.registerSystem('slide-camera', {
             const prevPos = prevEl.getAttribute('position');
             const prevRot = prevEl.getAttribute('rotation');
 
-            const { duration } = direction > 0 ? data : prevEl.components['slide-camera'].data;
-            camera.setAttribute('animation__position', `property: position; dur: ${duration}; easing: linear; from: ${prevPos.x} ${prevPos.y} ${prevPos.z}; to: ${curPos.x} ${curPos.y} ${curPos.z}`);
-            camera.setAttribute('animation__rotation', `property: rotation; dur: ${duration}; easing: linear; from: ${prevRot.x} ${prevRot.y} ${prevRot.z}; to: ${curRot.x} ${curRot.y} ${curRot.z}`);
+            const { duration, easing } = direction > 0 ? data : prevEl.components['slide-camera'].data;
+            camera.setAttribute('animation__position', `property: position; dur: ${duration}; easing: ${easing}; from: ${prevPos.x} ${prevPos.y} ${prevPos.z}; to: ${curPos.x} ${curPos.y} ${curPos.z}`);
+            camera.setAttribute('animation__rotation', `property: rotation; dur: ${duration}; easing: ${easing}; from: ${prevRot.x} ${prevRot.y} ${prevRot.z}; to: ${curRot.x} ${curRot.y} ${curRot.z}`);
         }
     }
 });
@@ -170,6 +170,7 @@ AFRAME.registerSystem('slide-camera', {
 AFRAME.registerComponent('slide-camera', {
     schema: {
         duration: { type: 'number', default: 1000 },
+        easing: { type: 'string', default: 'linear' }
     },
 
     init: function() {
@@ -222,14 +223,11 @@ AFRAME.registerSystem('slide-animation', {
                 return;
             }
 
-            console.log(presentation);
             presentation.addEventListener('a-presentation.slide-change', () => {
-                console.log('Clearing up', this.timeouts);
                 while(this.timeouts.length > 0) {
                     const timeout = this.timeouts.pop();
                     clearTimeout(timeout);
                 }
-                console.log('Done Clearing up', this.timeouts);
             });
         });
     },
@@ -353,6 +351,7 @@ AFRAME.registerPrimitive('a-slide', {
 
 AFRAME.registerComponent('presentation', {
     schema: {
+        aspectRatio: { type: 'string', default: null },
         progressBar: { type: 'boolean', default: true },
         shortcuts: { type: 'boolean', default: true },
         useHash: { type: 'boolean', default: true },
@@ -365,6 +364,10 @@ AFRAME.registerComponent('presentation', {
 
     init: function() {
         this.slides = this.el.querySelectorAll('[slide]');
+
+        if (this.data.aspectRatio) {
+            this.setupAspectRatio();
+        }
 
         if (this.data.progressBar) {
             const progressBar = document.createElement('div');
@@ -471,6 +474,44 @@ AFRAME.registerComponent('presentation', {
         this.changeSlide(1);
     },
 
+    setupAspectRatio: function() {
+        const data = this.data.aspectRatio.split(':');
+        if (data.length !== 2) {
+            console.warn('The aspect ratio must be defined as follows: width:height. Example: "16:9"');
+            return;
+        }
+
+        const sceneEl = this.el.sceneEl;
+        if (!sceneEl.hasAttribute('embedded')) {
+            sceneEl.setAttribute('embedded', '');
+        }
+
+        const width = parseInt(data[0]);
+        const height = parseInt(data[1]);
+        const updateCanvas = function() {
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+
+            let canvasWidth, canvasHeight;
+
+            if (width > height) {
+                canvasWidth = windowWidth;
+                canvasHeight = canvasWidth * (height / width);
+            } else {
+                canvasHeight = windowHeight;
+                canvasWidth = canvasHeight * (width / height);
+            }
+
+            const top = (windowHeight - canvasHeight) / 2;
+            const left = (windowWidth - canvasWidth) / 2;
+
+            sceneEl.setAttribute('style', `position: fixed; top: ${top}px; left: ${left}px; width: ${canvasWidth}px; height: ${canvasHeight}px`);
+        };
+
+        window.addEventListener('resize', () => updateCanvas());
+        updateCanvas();
+    },
+
     _onKey: function(event) {
         switch(event.code) {
             case 'ArrowLeft':
@@ -490,6 +531,7 @@ AFRAME.registerPrimitive('a-presentation', {
     },
 
     mappings: {
+        'aspect-ratio': 'presentation.aspectRatio',
         'progress-bar': 'presentation.progressBar',
         'shortcuts': 'presentation.shortcuts',
         'use-hash': 'presentation.useHash',
