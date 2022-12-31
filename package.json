@@ -20,8 +20,8 @@
   ],
   "dependencies": {
     "aframe": "^1.1.0",
-    "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.10"
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   },
   "devDependencies": {
     "budo": "^11.2.0"
